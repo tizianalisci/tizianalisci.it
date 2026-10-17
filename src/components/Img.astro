@@ -1,0 +1,33 @@
+---
+import { Picture } from 'astro:assets';
+import { img } from '../lib/images';
+import type { Pic } from '../data/projects';
+import type { Lang } from '../data/site';
+
+interface Props {
+  pic: Pic;
+  lang: Lang;
+  sizes?: string;
+  class?: string;
+  eager?: boolean;
+}
+
+const { pic, lang, sizes = '100vw', class: className, eager = false } = Astro.props;
+const src = img(pic.src);
+const widths = [480, 800, 1200, 1600, 2200].filter((w) => w < src.width).concat(Math.min(src.width, 2400));
+---
+
+<Picture
+  src={src}
+  alt={pic.alt[lang]}
+  widths={[...new Set(widths)]}
+  sizes={sizes}
+  formats={['webp']}
+  fallbackFormat="jpg"
+  quality={80}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+  decoding={eager ? 'sync' : 'async'}
+  class={className}
+  style={pic.position ? `object-position:${pic.position}` : undefined}
+/>

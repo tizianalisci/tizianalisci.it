@@ -1,0 +1,21 @@
+---
+import { T, ROLE, href, type Lang } from '../data/site';
+
+interface Props { lang: Lang; path: string }
+const { lang, path } = Astro.props;
+const t = T[lang];
+const other: Lang = lang === 'it' ? 'en' : 'it';
+const isAbout = path.startsWith('/about');
+const isWork = path.startsWith('/work');
+---
+
+<header class="site-header">
+  <a class="brand" href={href(lang, '/')} aria-label="Tiziana Lisci, home">Tiziana Lisci</a>
+  <span class="role">{ROLE[lang]}, {lang === 'it' ? 'Roma' : 'Rome'}</span>
+  <nav aria-label={t.menu}>
+    <a href={href(lang, '/') + '#lavori'} aria-current={isWork ? 'page' : undefined}>{t.work}</a>
+    <a href={href(lang, '/about/')} aria-current={isAbout ? 'page' : undefined}>{t.about}</a>
+    <a class="hide-s" href="#contatti">{t.contact}</a>
+    <a class="lang" href={href(other, path)} hreflang={other} lang={other} title={t.switchLabel}>{other.toUpperCase()}</a>
+  </nav>
+</header>

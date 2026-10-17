@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import { PROJECTS } from '../data/projects';
+import { SITE, T, localePath, href, type Lang } from '../data/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
+
+const C = {
+  it: {
+    title: 'Tiziana Lisci | Creative Director & Producer a Roma',
+    description: 'Portfolio di Tiziana Lisci, creative director e producer nata in Sardegna e basata a Roma. Fotografia ed editoria: Corpi senza volto, Unholy, Vanessa.',
+    hero: [', creative director e producer.', 'Sarda, vive a Roma.'],
+    about: 'Sin da piccola mi perdo a osservare le persone e a immaginare le loro storie. Dopo la danza ho scelto la comunicazione nella moda, all’Accademia Costume & Moda di Roma. Oggi seguo i progetti dall’idea al set, tra direzione creativa e produzione.',
+    more: 'Leggi di più',
+  },
+  en: {
+    title: 'Tiziana Lisci | Creative Director & Producer in Rome',
+    description: 'Portfolio of Tiziana Lisci, a creative director and producer born in Sardinia and based in Rome. Photography and publishing: Corpi senza volto, Unholy, Vanessa.',
+    hero: [', creative director and producer.', 'From Sardinia, based in Rome.'],
+    about: 'Ever since I was little I’ve got lost watching people and imagining their stories. After dance, I chose fashion communication at Accademia Costume & Moda in Rome. Today I follow projects from the idea to the set, across creative direction and production.',
+    more: 'Read more',
+  },
+}[lang];
+
+const itemList = {
+  '@type': 'ItemList',
+  name: t.selected,
+  itemListElement: PROJECTS.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(localePath(lang, `/work/${p.slug}/`), SITE.url).href, name: p.title })),
+};
+---
+
+<Base lang={lang} path="/" title={C.title} description={C.description} ogImage="corpi/cover" jsonld={[itemList]}>
+  <section class="hero wrap">
+    <h1 class="hero-title"><strong>Tiziana Lisci</strong>{C.hero[0]}</h1>
+    <p class="hero-sub">{C.hero[1]}</p>
+  </section>
+
+  <section id="lavori" class="work wrap" aria-label={t.work}>
+    <ul class="projects">
+      {PROJECTS.map((p, i) => (
+        <li>
+          <a class="project" href={href(lang, `/work/${p.slug}/`)}>
+            <div class="project-img">
+              <Img pic={p.card} lang={lang} sizes="(max-width: 760px) 100vw, 33vw" eager={i === 0} />
+            </div>
+            <h2 class="project-title">{p.title}</h2>
+            <p class="project-meta">{p.kind[lang]}{p.year ? `, ${p.year}` : ''}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="home-about wrap" aria-labelledby="home-about-title" data-reveal>
+    <h2 id="home-about-title" class="label kicker">{t.about}</h2>
+    <div class="home-about-grid">
+      <p class="home-about-text">{C.about}</p>
+      <figure class="home-about-img">
+        <Img pic={{ src: 'about/tiziana-01', alt: { it: 'Ritratto in bianco e nero di Tiziana Lisci', en: 'Black and white portrait of Tiziana Lisci' } }} lang={lang} sizes="(max-width: 760px) 50vw, 20vw" />
+      </figure>
+    </div>
+    <a class="link-arrow" href={href(lang, '/about/')}>{C.more} <span aria-hidden="true">→</span></a>
+  </section>
+
+  <figure class="home-sea" data-reveal>
+    <Img pic={{ src: 'about/mare', alt: { it: 'Il mare della Sardegna, azzurro e calmo, fino all’orizzonte', en: 'The Sardinian sea, calm and blue, out to the horizon' } }} lang={lang} sizes="100vw" />
+  </figure>
+</Base>
+
+<style>
+  .hero { padding-top: clamp(56px, 9vw, 150px); padding-bottom: clamp(48px, 7vw, 110px); }
+  .hero-title { font-size: clamp(34px, 4.2vw + 4px, 84px); font-weight: 400; line-height: 1.04; letter-spacing: -0.03em; max-width: 17ch; text-wrap: balance; }
+  .hero-sub { font-size: var(--fs-lead); line-height: 1.2; letter-spacing: -0.01em; color: var(--fg-muted); margin: 0.9em 0 0; }
+  .hero-title strong { font-weight: 700; }
+
+  .projects { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
+  .project { display: block; }
+  .project-img { overflow: hidden; aspect-ratio: 3 / 4; background: #e4e1da; }
+  .project-img :global(picture), .project-img :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .project-img :global(img) { transition: transform 1.2s var(--ease); }
+  .project-title { font-size: clamp(24px, 2.2vw, 36px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 14px; }
+  .project-meta { color: var(--fg-muted); margin: 4px 0 0; font-size: 15px; }
+  @media (hover: hover) {
+    .project:hover .project-img :global(img) { transform: scale(1.03); }
+  }
+  @media (max-width: 760px) {
+    .projects { grid-template-columns: 1fr; row-gap: 40px; }
+  }
+
+  .home-about { margin-top: clamp(96px, 12vw, 200px); }
+  .home-about-grid { display: grid; grid-template-columns: minmax(0, 1fr) clamp(160px, 18vw, 280px); gap: calc(var(--gap) * 3); align-items: start; border-top: 1px solid var(--rule); padding-top: 20px; margin-bottom: 28px; }
+  .home-about-text { font-size: var(--fs-lead); line-height: 1.28; letter-spacing: -0.01em; max-width: 34ch; margin: 0; }
+  .home-about-img { margin: 0; }
+  .home-sea { margin: clamp(96px, 12vw, 200px) 0 calc(clamp(80px, 12vw, 200px) * -1); }
+  .home-sea :global(img) { width: 100%; height: clamp(300px, 64vh, 760px); object-fit: cover; object-position: 50% 40%; }
+  @media (max-width: 760px) {
+    .home-about-grid { grid-template-columns: 1fr; }
+    .home-about-img { width: 55%; }
+  }
+</style>

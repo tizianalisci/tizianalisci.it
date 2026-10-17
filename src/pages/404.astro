@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../data/site';
+---
+
+<Base lang="it" path="/404/" title="Pagina non trovata | Tiziana Lisci" description="Questa pagina non esiste." noindex>
+  <section class="nf wrap">
+    <p class="label kicker">404</p>
+    <h1>Questa pagina non esiste.</h1>
+    <p class="nf-en">This page doesn’t exist.</p>
+    <p><a class="link-arrow label" href={href('it', '/')}>Torna alla home <span aria-hidden="true">→</span></a></p>
+  </section>
+</Base>
+
+<style>
+  .nf { padding-top: clamp(80px, 14vw, 220px); }
+  .nf h1 { font-size: var(--fs-h2); max-width: 14ch; }
+  .nf-en { font-size: var(--fs-lead); color: var(--fg-muted); margin: 0.6em 0 2em; }
+</style>

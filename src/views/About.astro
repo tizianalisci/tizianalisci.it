@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import { PROJECTS } from '../data/projects';
+import { SITE, ROLE, T, href, type Lang } from '../data/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
+
+const C = {
+  it: {
+    title: 'Chi sono | Tiziana Lisci, Creative Director & Producer a Roma',
+    description: 'Tiziana Lisci è nata in Sardegna e vive a Roma. Dalla danza alla comunicazione di moda all’Accademia Costume & Moda: direzione creativa e produzione, partendo dalle persone.',
+    line: 'Creative Director & Producer. Nata in Sardegna, vive a Roma.',
+    story: [
+      'Sono nata in un piccolo paese della Sardegna. Il legame con il mare e con la mia terra resterà in me per sempre. Vivo a Roma, la città più bella del mondo, ma niente mi lascia estasiata come quando torno nel mio mare.',
+      'Sin da piccola mi lascio trasportare da ciò che mi circonda. Cammino per strada, prendo la metro, e mi perdo a osservare le persone. Mi invento le loro storie: quali ostacoli hanno superato, cosa le ha portate a essere chi sono oggi. Penso che ognuno di noi abbia qualcosa da insegnare o da raccontare.',
+      'Fino ai vent’anni ho provato tantissimi sport, ma la strada che volevo percorrere davvero era una sola: la danza. Poi qualcosa si è rotto, e da lì è cambiato tutto. Tranne la curiosità.',
+      'Un’estate ero animatrice in un villaggio della Basilicata, sei mesi dopo servivo gelati nella gelateria più buona di Roma, poi orientavo studenti in una segreteria universitaria. Cosa c’è in comune? Le persone. Con la danza il pubblico restava sempre in penombra e non riuscivo mai a entrarci in contatto.',
+      'Per questo ho scelto la comunicazione nella moda, all’Accademia Costume & Moda di Roma: per lavorare con le relazioni, con le persone, vicino all’arte e alla cultura. Oggi mi muovo tra direzione creativa e produzione. Seguo un progetto dall’idea al set, capisco di cosa ha bisogno e faccio in modo che tutto vada per il verso giusto.',
+    ],
+    sections: [
+      { h: 'Formazione', items: [['Accademia Costume & Moda, Roma', 'Fashion Editor, Styling & Communication']] },
+      { h: 'Cosa faccio', items: [['Direzione creativa', ''], ['Art direction', ''], ['Produzione', ''], ['Concept e ricerca', ''], ['Book design', '']] },
+    ],
+    projectsH: 'Progetti',
+    valuesH: 'Valori',
+    values: [
+      ['Curiosità', 'Il desiderio costante di capire le persone, le loro storie e il mondo intorno a me.'],
+      ['Empatia', 'Osservare e immaginare l’esperienza e il vissuto degli altri.'],
+      ['Relazione', 'Il valore più grande è nello scambio umano.'],
+      ['Autenticità', 'Non cerco un percorso già scritto. Voglio trovare la mia strada attraverso esperienze reali.'],
+      ['Crescita continua', 'Ogni persona e ogni esperienza sono un’occasione per imparare qualcosa.'],
+      ['Radici', 'La mia terra e ciò che mi ha formata restano parte di chi sono.'],
+    ],
+    visionH: 'Vision',
+    vision: 'Creare comunicazione che parta dalle persone, valorizzando le loro storie e costruendo relazioni autentiche tra brand, progetti e pubblico. Le persone, non solo numeri o target.',
+    missionH: 'Mission',
+    mission: 'Ascoltare, capire e tradurre le storie e i bisogni delle persone in progetti di comunicazione che creino connessioni reali.',
+    seaAlt: 'Il mare della Sardegna, azzurro e calmo, fino all’orizzonte',
+  },
+  en: {
+    title: 'About | Tiziana Lisci, Creative Director & Producer in Rome',
+    description: 'Tiziana Lisci was born in Sardinia and lives in Rome. From dance to fashion communication at Accademia Costume & Moda: creative direction and production, starting from people.',
+    line: 'Creative Director & Producer. Born in Sardinia, based in Rome.',
+    story: [
+      'I was born in a small village in Sardinia. The bond with the sea and with my land will stay with me forever. I live in Rome, the most beautiful city in the world, but nothing moves me like going back to my sea.',
+      'Ever since I was little I’ve let myself be carried away by what’s around me. I walk down the street, I take the metro, and I get lost watching people. I make up their stories: what they’ve overcome, what made them who they are today. I think each of us has something to teach or to tell.',
+      'Until I was twenty I tried countless sports, but there was only one path I really wanted: dance. Then something broke, and everything changed. Except my curiosity.',
+      'One summer I was an entertainer at a holiday village in Basilicata, six months later I was serving ice cream at the best gelateria in Rome, then guiding students at a university office. What do they have in common? People. When I danced, the audience was always in the dark and I could never really reach them.',
+      'That’s why I chose fashion communication at Accademia Costume & Moda in Rome: to work with relationships, with people, close to art and culture. Today I move between creative direction and production. I follow a project from the idea to the set, understand what it really needs and make sure everything goes the right way.',
+    ],
+    sections: [
+      { h: 'Education', items: [['Accademia Costume & Moda, Rome', 'Fashion Editor, Styling & Communication']] },
+      { h: 'What I do', items: [['Creative direction', ''], ['Art direction', ''], ['Production', ''], ['Concept & research', ''], ['Book design', '']] },
+    ],
+    projectsH: 'Projects',
+    valuesH: 'Values',
+    values: [
+      ['Curiosity', 'A constant wish to understand people, their stories and the world around me.'],
+      ['Empathy', 'Observing and imagining what others have lived through.'],
+      ['Relationships', 'The greatest value lies in human exchange.'],
+      ['Authenticity', 'I’m not looking for a ready-made path. I want to find my own through real experiences.'],
+      ['Growth', 'Every person and every experience is a chance to learn something.'],
+      ['Roots', 'My land and what shaped me remain part of who I am.'],
+    ],
+    visionH: 'Vision',
+    vision: 'Creating communication that starts from people, valuing their stories and building authentic relationships between brands, projects and audiences. People, not just numbers or targets.',
+    missionH: 'Mission',
+    mission: 'Listening to, understanding and translating people’s stories and needs into communication projects that create real connections.',
+    seaAlt: 'The Sardinian sea, calm and blue, out to the horizon',
+  },
+}[lang];
+
+const gallery = [
+  { src: 'about/tiziana-set', alt: { it: 'Tiziana dietro le quinte, con un panda di peluche in braccio', en: 'Tiziana behind the scenes, holding a stuffed panda' } },
+  { src: 'about/tiziana-motion', alt: { it: 'Tiziana di spalle, foto mossa allo specchio', en: 'Tiziana from behind, a blurred mirror shot' } },
+  { src: 'about/tiziana-02', alt: { it: 'Primo piano di Tiziana in bianco e nero', en: 'Black and white close-up of Tiziana' } },
+];
+---
+
+<Base lang={lang} path="/about/" title={C.title} description={C.description} ogImage="about/tiziana-01" pageType="ProfilePage" breadcrumb={[{ name: 'Tiziana Lisci', path: '/' }, { name: t.about, path: '/about/' }]}>
+  <section class="a-hero wrap">
+    <div>
+      <h1 class="a-name">Tiziana<br />Lisci</h1>
+      <p class="a-line">{C.line}</p>
+    </div>
+    <figure class="a-portrait">
+      <Img pic={{ src: 'about/tiziana-01', alt: { it: 'Ritratto in bianco e nero di Tiziana Lisci', en: 'Black and white portrait of Tiziana Lisci' } }} lang={lang} sizes="(max-width: 760px) 80vw, 34vw" eager />
+    </figure>
+  </section>
+
+  <section class="a-story wrap">
+    {C.story.map((p, i) => <p class:list={{ first: i === 0 }} data-reveal>{p}</p>)}
+  </section>
+
+  <div class="a-gallery wrap" data-reveal>
+    {gallery.map((g) => (
+      <figure>
+        <Img pic={g} lang={lang} sizes="(max-width: 760px) 50vw, 30vw" />
+      </figure>
+    ))}
+  </div>
+
+  <section class="a-lists wrap">
+    {C.sections.map((s) => (
+      <div class="a-list" data-reveal>
+        <h2>{s.h}</h2>
+        <ul>{s.items.map(([a, b]) => <li>{a}{b && <span class="muted"><br />{b}</span>}</li>)}</ul>
+      </div>
+    ))}
+    <div class="a-list" data-reveal>
+      <h2>{C.projectsH}</h2>
+      <ul>
+        {PROJECTS.map((p) => (
+          <li><a href={href(lang, `/work/${p.slug}/`)}>{p.title}</a><span class="muted">, {p.kind[lang].toLowerCase()}{p.year ? `, ${p.year}` : ''}</span></li>
+        ))}
+      </ul>
+    </div>
+    <div class="a-list" data-reveal>
+      <h2>{C.valuesH}</h2>
+      <ul class="a-values">
+        {C.values.map(([a, b]) => <li><strong>{a}</strong><span class="muted"> {b}</span></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="a-vm wrap">
+    <div data-reveal><p class="label kicker">{C.visionH}</p><p class="a-vm-text">{C.vision}</p></div>
+    <div data-reveal><p class="label kicker">{C.missionH}</p><p class="a-vm-text">{C.mission}</p></div>
+  </section>
+
+  <figure class="a-sea" data-reveal>
+    <Img pic={{ src: 'about/mare', alt: { it: C.seaAlt, en: C.seaAlt }, position: '50% 40%' }} lang={lang} sizes="100vw" />
+  </figure>
+</Base>
+
+<style>
+  .a-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); gap: calc(var(--gap) * 2); align-items: end; padding-top: clamp(40px, 7vw, 120px); }
+  .a-name { font-size: clamp(64px, 10vw, 200px); font-weight: 700; line-height: 0.86; letter-spacing: -0.055em; text-transform: uppercase; }
+  .a-line { font-size: var(--fs-lead); margin-top: 0.8em; max-width: 24ch; line-height: 1.2; }
+  .a-portrait { margin: 0; }
+  @media (max-width: 760px) { .a-hero { grid-template-columns: 1fr; } .a-portrait { width: 80%; margin-left: auto; } }
+
+  .a-story { max-width: 1180px; padding-top: clamp(72px, 10vw, 160px); columns: 2; column-gap: calc(var(--gap) * 3); }
+  .a-story p { break-inside: avoid; }
+  .a-story p.first { column-span: all; font-size: var(--fs-lead); line-height: 1.25; max-width: 36ch; margin-bottom: 1.6em; }
+  @media (max-width: 760px) { .a-story { columns: 1; } }
+
+  .a-gallery { display: grid; grid-template-columns: 1.1fr 0.8fr 1fr; gap: var(--gap); align-items: end; margin-top: clamp(64px, 9vw, 140px); }
+  .a-gallery figure { margin: 0; }
+  .a-gallery figure:nth-child(2) { margin-bottom: 12%; }
+  .a-gallery figcaption { margin-top: 8px; }
+  @media (max-width: 760px) { .a-gallery { grid-template-columns: 1fr 1fr; } .a-gallery figure:first-child { grid-column: 1 / -1; width: 75%; } }
+
+  .a-lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(48px, 6vw, 96px) calc(var(--gap) * 2); margin-top: clamp(96px, 12vw, 200px); }
+  .a-list h2 { font-size: clamp(44px, 6.4vw, 120px); font-weight: 700; text-transform: uppercase; letter-spacing: -0.05em; line-height: 0.85; border-bottom: 1px solid var(--rule); padding-bottom: 0.12em; margin-bottom: 0.4em; }
+  .a-list ul { list-style: none; margin: 0; padding: 0; }
+  .a-list li { padding: 6px 0; line-height: 1.35; }
+  .a-list li a { border-bottom: 1px solid var(--rule); }
+  .a-list li a:hover { border-color: currentColor; }
+  .a-values strong { font-weight: 500; }
+  @media (max-width: 760px) { .a-lists { grid-template-columns: 1fr; } }
+
+  .a-vm { display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--gap) * 2); margin-top: clamp(96px, 12vw, 200px); }
+  .a-vm-text { font-size: var(--fs-lead); line-height: 1.22; letter-spacing: -0.01em; max-width: 30ch; }
+  @media (max-width: 760px) { .a-vm { grid-template-columns: 1fr; } }
+
+  .a-sea { position: relative; margin: clamp(96px, 12vw, 200px) 0 0; }
+  .a-sea :global(img) { width: 100%; height: clamp(320px, 70vh, 820px); object-fit: cover; }
+</style>

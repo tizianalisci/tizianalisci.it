@@ -1,0 +1,10 @@
+{
+  "name": "Tiziana Lisci",
+  "short_name": "T. Lisci",
+  "description": "Creative Director & Producer, Roma",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#f3f1ec",
+  "theme_color": "#f3f1ec",
+  "icons": [{ "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }]
+}

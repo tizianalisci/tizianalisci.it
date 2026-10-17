@@ -1,0 +1,22 @@
+---
+import { SITE, T, type Lang } from '../data/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = T[lang];
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer" id="contatti">
+  <div class="footer-main">
+    <a class="footer-cta" href={`mailto:${SITE.email}`}>{t.writeMe} <span aria-hidden="true">→</span></a>
+
+    <dl class="footer-grid">
+      <div><dt class="label">Email</dt><dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+      <div><dt class="label">Instagram</dt><dd><a href={SITE.instagramUrl} rel="me noopener" target="_blank">@{SITE.instagram}</a></dd></div>
+      <div><dt class="label">{lang === 'it' ? 'Base' : 'Based'}</dt><dd>{t.based}</dd></div>
+    </dl>
+  </div>
+
+  <div class="footer-bottom label">© {year} Tiziana Lisci</div>
+</footer>
