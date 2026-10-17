@@ -30,6 +30,5 @@ npm run build    # sito finale in dist/
 
 Il sito si pubblica da solo su GitHub Pages a ogni push sul branch `main` (workflow in `.github/workflows/deploy.yml`).
 
-- Senza dominio il sito è su `https://<utente>.github.io/tizianalisci.it/`.
-- Comprato `tizianalisci.it`: creare `public/CNAME` con dentro solo `tizianalisci.it`, impostare i DNS verso GitHub Pages e indicare il dominio in Settings > Pages del repository. Da quel momento il sito è servito dalla radice del dominio.
+- Il sito è su `https://tizianalisci.it` (file `public/CNAME`, DNS su Aruba verso GitHub Pages). Senza `public/CNAME` il workflow pubblica in sottocartella, su `https://tizianalisci.github.io/tizianalisci.it/`.
 - Poi registrare il sito su Google Search Console e Bing Webmaster Tools e inviare `https://tizianalisci.it/sitemap-index.xml`.
