@@ -268,8 +268,8 @@ const vanessa: Project = {
     P('vanessa/vanessa-01', 'Bianco e nero: donna accovacciata di profilo', 'Black and white: a woman crouching in profile'),
   ],
   summary: l(
-    'Ritratti in studio con velo, pizzo e corsetteria, e qualche scatto in atelier tra manichini e tessuti.',
-    'Studio portraits with veil, lace and corsetry, and a few shots in the atelier among mannequins and fabric.',
+    'Ritratto editoriale.',
+    'Editorial portrait.',
   ),
   seo: l(
     'Vanessa, ritratto editoriale di Tiziana Lisci: con Vanessa Tordella tra velo, pizzo, corsetteria e atelier. Roma, 2026.',
